@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">TEXT AUDIO</h2>
+            <h3 id="artist">Slowest+Reverb</h3>
+            <div class="img_container">
+                <img src="pic/divya1.jpg" alt="">
+            </div>
+            <audio src="music/divya1.mp3"></audio>
+            <!--CONTROLS-->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector('audio');
+        const img = document.querySelector("img");
+        const Play = document.getElementById('play');
+        const artist = document.getElementById('artist');
+        const title = document.getElementById('title');
+        const Prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+
+        const songs = [
+            {
+                name: "divya",
+                title: "Text Audio",
+                artist: "Slowest+Reverb",
+            },
+            {
+                name: "divya1",
+                title: "Lofi Music",
+                artist: "relax study",
+            },
+            {
+                name: "divya2",
+                title: "Ilzaam",
+                artist: "Shani Arshad",
+            },
+            {
+                name: "divya3",
+                title: "Kiston",
+                artist: "Rajkumar",
+            },
+        ];
+
+        let isPlaying = false;
+        //for play funcation
+
+        const playMusic = () => {
+            isPlaying = true;
+            music.play();
+            Play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+        };
+        //for pause funcation
+        const pauseMusic = () => {
+            isPlaying = false;
+            music.pause();
+            Play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+        };
+
+        Play.addEventListener('click', () => {
+            // if(isPlaying){
+            // pauseMusic();
+            // }else{
+            //    playMusic();
+            //  }
+            isPlaying ? pauseMusic() : playMusic();
+        });
+        //changing the music data
+        const loadsong = (songs) => {
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "music/" + songs.name + ".mp3";
+            img.src = "pic/" + songs.name + ".jpg";
+        };
+        songIndex = 0;
+      // loadsong(songs[0]);
+
+       const nextSong = () =>{
+           songIndex = (songIndex + 1) % songs.length;
+        loadsong(songs[songIndex]);
+        playMusic();
+       };
+       const prevSong = () =>{
+           songIndex = (songIndex - 1 + songs.length) % songs.length;
+        loadsong(songs[songIndex]);
+        playMusic();
+       };
+
+       next.addEventListener("click",nextSong);
+       prev.addEventListener("click",prevSong);
+</script>
+    </script>
+</body>
+
+</html>
